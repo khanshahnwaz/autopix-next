@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Auth from "../layouts/Auth.js";
 import { useFormik, Formik, Field, Form } from "formik";
 import $ from "jquery";
@@ -6,6 +6,14 @@ import $ from "jquery";
 export default function Register() {
 	const [level, setLevel] = useState(0);
 	const [data, setData] = useState({});
+	const updateData = (vals) => {
+		var obj = Object.assign({}, data, vals);
+		setData(obj);
+		// useEffect(() => {
+		console.log(data);
+		alert(JSON.stringify(data, null, 2));
+		// }, [data]);
+	};
 	const form1 = useFormik({
 		initialValues: {
 			email: "",
@@ -15,28 +23,28 @@ export default function Register() {
 		validate: (values) => {
 			const errors = {};
 
-			if (!values.email) {
-				errors.email = "*required";
-			} else if (
-				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-			) {
-				errors.email = "*invalid email";
-			}
-			if (!values.password) {
-				errors.password = "*required";
-			}
-			if (!values.confirmPassword) {
-				errors.confirmPassword = "*Required";
-			} else if (values.confirmPassword != values.password) {
-				errors.confirmPassword = "*password doesn't match.";
-			}
+			// if (!values.email) {
+			// 	errors.email = "*required";
+			// } else if (
+			// 	!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+			// ) {
+			// 	errors.email = "*invalid email";
+			// }
+			// if (!values.password) {
+			// 	errors.password = "*required";
+			// }
+			// if (!values.confirmPassword) {
+			// 	errors.confirmPassword = "*Required";
+			// } else if (values.confirmPassword != values.password) {
+			// 	errors.confirmPassword = "*password doesn't match.";
+			// }
 			return errors;
 		},
 		onSubmit: async (values) => {
 			await new Promise((r) => setTimeout(r, 500));
-			setLevel(1);
+			console.log(values);
 			setData(values);
-			console.log(level);
+			setLevel(1);
 		},
 	});
 
@@ -49,23 +57,26 @@ export default function Register() {
 			const errors = {};
 			if (!values.name) {
 				errors.name = "*Required";
-			} else if (
-				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.name)
-			) {
-				errors.name = "*invalid name";
+				// } else if (
+				// 	// !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.name)
+				// )
+				// {
+				// 	errors.name = "*invalid name";
 			}
 			if (!values.company) {
 				errors.company = "*required";
 			}
 			return errors;
 		},
-		onSubmit: (values) => {
-			// await new Promise((r) => setTimeout(r, 500));
+		onSubmit: async (values) => {
+			await new Promise((r) => setTimeout(r, 1000));
 			var obj = Object.assign({}, data, values);
+			console.log(values);
 			setData(obj);
-			// final += values
-			console.log(data);
-			alert(JSON.stringify(data, null, 2))
+			// useEffect(() => {
+			alert(JSON.stringify(data, null, 2));
+			// }, [data]);
+			// updateData(values);
 		},
 	});
 
