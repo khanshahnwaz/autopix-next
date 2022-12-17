@@ -43,6 +43,8 @@
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.2.5",
+		"formik": "^2.2.9",
+		"jquery": "^3.6.2",
 		"postcss": "^8.2.8",
 		"tailwindcss": "^2.0.4"
 	}
