@@ -12,14 +12,14 @@ export default function Login() {
 			const errors = {};
 
 			if (!values.email) {
-				errors.email = "*required";
+				errors.email = "*Required";
 			} else if (
 				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
 			) {
-				errors.email = "*invalid email";
+				errors.email = "*Invalid email";
 			}
 			if (!values.password) {
-				errors.password = "*required";
+				errors.password = "*Required";
 			}
 			return errors;
 		},

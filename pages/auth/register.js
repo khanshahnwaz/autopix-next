@@ -16,19 +16,21 @@ export default function Register() {
 			const errors = {};
 
 			if (!values.email) {
-				errors.email = "*required";
+				errors.email = "*Required";
 			} else if (
 				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
 			) {
-				errors.email = "*invalid email";
+				errors.email = "*Invalid email";
 			}
 			if (!values.password) {
-				errors.password = "*required";
+				errors.password = "*Required";
+			}else if(values.password.length!=8){
+				errors.password='*Must contain 8 characters'
 			}
 			if (!values.confirmPassword) {
 				errors.confirmPassword = "*Required";
 			} else if (values.confirmPassword != values.password) {
-				errors.confirmPassword = "*password doesn't match.";
+				errors.confirmPassword = "*Password doesn't match.";
 			}
 			return errors;
 		},
@@ -49,13 +51,14 @@ export default function Register() {
 			const errors = {};
 			if (!values.name) {
 				errors.name = "*Required";
-			} else if (
-				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.name)
-			) {
-				errors.name = "*invalid name";
 			}
+			//  else if (
+			// 	!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.name)
+			// ) {
+			// 	errors.name = "*Invalid name";
+			// }
 			if (!values.company) {
-				errors.company = "*required";
+				errors.company = "*Required";
 			}
 			return errors;
 		},
