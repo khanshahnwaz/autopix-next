@@ -72,9 +72,9 @@ export default function Register() {
 		},
 		onSubmit: async (values) => {
 			await new Promise((r) => setTimeout(r, 1000));
-			var obj = Object.assign({}, data, values);
-			console.log(values);
-			setData(obj);
+			// var obj = Object.assign({}, data, values);
+			// console.log(values);
+			setData(values=>{[...data,values]});
 			// useEffect(() => {
 			alert(JSON.stringify(data, null, 2));
 			// }, [data]);
