@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Auth from "../layouts/Auth.js";
 import { useFormik, Formik, Field, Form } from "formik";
 import $ from "jquery";
-
+import Link from 'next/link'
 export default function Register() {
 	const [level, setLevel] = useState(0);
 	const [data, setData] = useState({});
@@ -52,21 +52,19 @@ export default function Register() {
 			if (!values.name) {
 				errors.name = "*Required";
 			}
-			{
-				errors.name = "*invalid name";
-			}
+
 			if (!values.company) {
 				errors.company = "*Required";
 			}
 			return errors;
 		},
 		onSubmit: async (values) => {
-			await new Promise((r) => setTimeout(r, 1000));
+			// await new Promise((r) => setTimeout(r, 1000));
 			// var obj = Object.assign({}, data, values);
 			// console.log(values);
-			setData(values=>{[...data,values]});
+			setData(val=>[...val,values]);
 			// useEffect(() => {
-			alert(JSON.stringify(data, null, 2));
+			alert(JSON.stringify(data));
 			// }, [data]);
 			// updateData(values);
 		},
@@ -81,12 +79,14 @@ export default function Register() {
 							<div className="rounded-t mb-0 px-6 py-6">
 								<div className="text-center mb-3">
 									<h6 className="text-blueGray-500 text-xl font-bold">
-										Sign up
+										CREATE ACCOUNT
 									</h6>
+									<small>Already have one? <Link href='/auth/login'><span className="text-blue-700 hover:cursor-pointer">SignIn</span></Link></small>
 								</div>
 								<hr className="mt-6 border-b-1 border-blueGray-300" />
 							</div>
 							<div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+
 								{level === 0 ? (
 									<form onSubmit={form1.handleSubmit}>
 										<div className="relative w-full mb-3">
@@ -163,7 +163,7 @@ export default function Register() {
 												className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
 												type="submit"
 											>
-												Next
+												Create New Account
 											</button>
 										</div>
 									</form>
@@ -208,7 +208,7 @@ export default function Register() {
 												onChange={form2.handleChange}
 												value={form2.values.company}
 											/>
-											{form2.errors.name && form2.touched.company ? (
+											{form2.errors.company && form2.touched.company ? (
 												<span className="text-red-400 text-left">
 													{form2.errors.company}
 												</span>
@@ -229,7 +229,7 @@ export default function Register() {
 												className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
 												type="submit"
 											>
-												Create Account
+												Complete Registration
 											</button>
 										</div>
 									</form>
