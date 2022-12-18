@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Auth from "../layouts/Auth.js";
 import { useFormik } from "formik";
+import { Icon } from 'react-icons-kit'
+import {eye} from 'react-icons-kit/feather/eye'
+import {eyeOff} from 'react-icons-kit/feather/eyeOff'
 export default function Login() {
+	const [Vicon,setVIcon]=useState(eyeOff)
+	const [type,setType]=useState('password')
+	// to change the password visibility
+	const handlePass=()=>{
+		type=='password'?(setType('text'),setVIcon(eye)):(setType('password'),setVIcon(eyeOff))
+	}
 	const loginForm = useFormik({
 		initialValues: {
 			email: "",
@@ -75,15 +84,19 @@ export default function Login() {
 										>
 											Password
 										</label>
+										<div className="bg-white rounded-md flex items-center ">
 										<input
-											type="password"
-											className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+											type={type}
+											className=" px-3 py-3 rounded placeholder-blueGray-300 focus:outline-none focus:ring  text-blueGray-600 bg-transparent text-sm bg-white ease-linear transition-all duration-150 w-full shadow border-0"
 											placeholder="Password"
 											name="password"
 											onBlur={loginForm.handleBlur}
 											onChange={loginForm.handleChange}
 											value={loginForm.values.password}
 										/>
+												<span className="bg-white pt-1 cursor-pointer" onClick={handlePass}><Icon icon={Vicon}/></span>
+
+										</div>
 										{loginForm.errors.password && loginForm.touched.password ? (
 											<span className="text-red-400 text-left">
 												{loginForm.errors.password}

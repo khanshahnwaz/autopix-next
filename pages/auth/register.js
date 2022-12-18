@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Auth from "../layouts/Auth.js";
 import { useFormik, Formik, Field, Form } from "formik";
-import $ from "jquery";
-import Link from 'next/link'
+import Link from 'next/link';
+import { Icon } from 'react-icons-kit'
+import {eye} from 'react-icons-kit/feather/eye'
+import {eyeOff} from 'react-icons-kit/feather/eyeOff'
+
 export default function Register() {
+	const[cnfType,setCnfType]=useState('password')
+	const[type,setType]=useState('password')
+	const[cnfIcon,setCnfIcon]=useState(eyeOff)
+	const[Vicon,setVIcon]=useState(eyeOff)
 	const [level, setLevel] = useState(0);
 	const [data, setData] = useState({});
+
+	// set visibility of password section
+	const handlePass=()=>{
+		type=='password'?(setType('text'),setVIcon(eye)):(setType('password'),setVIcon(eyeOff))
+	}
+	const handleCnfPass=()=>{
+		cnfType=='password'?(setCnfType('text'),setCnfIcon(eye)):(setCnfType('password'),setCnfIcon(eyeOff))
+	}
 	const form1 = useFormik({
 		initialValues: {
 			email: "",
@@ -24,7 +39,7 @@ export default function Register() {
 			}
 			if (!values.password) {
 				errors.password = "*Required";
-			} else if (values.password.length != 8) {
+			} else if (values.password.length <= 8) {
 				errors.password = "*Must contain 8 characters";
 			}
 			if (!values.confirmPassword) {
@@ -119,15 +134,18 @@ export default function Register() {
 											>
 												Password
 											</label>
+											<div className="flex bg-white border-1 rounded">
 											<input
-												type="password"
-												className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+												type={type}
+												className=" px-3 py-3 placeholder-blueGray-300 text-blueGray-600  border-0 text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 inline"
 												placeholder="Password"
 												name="password"
 												onBlur={form1.handleBlur}
 												onChange={form1.handleChange}
 												value={form1.values.password}
 											/>
+											<span className="bg-white pt-1 cursor-pointer" onClick={handlePass}><Icon className="hover:cursor-pointer hover:opacity-50" icon={Vicon}/></span></div>
+
 											{form1.errors.password && form1.touched.password ? (
 												<span className="text-red-400 text-left">
 													{form1.errors.password}
@@ -142,8 +160,9 @@ export default function Register() {
 											>
 												Confirm Password
 											</label>
+											<div className="flex bg-white">
 											<input
-												type="password"
+												type={cnfType}
 												className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 												placeholder="Confirm Password"
 												name="confirmPassword"
@@ -151,6 +170,8 @@ export default function Register() {
 												onChange={form1.handleChange}
 												value={form1.values.confirmPassword}
 											/>
+											<span className="bg-white pt-1 cursor-pointer hover:opacity-50" onClick={handleCnfPass}><Icon className="" icon={cnfIcon}/></span>
+											</div>
 											{form1.errors.confirmPassword &&
 											form1.touched.confirmPassword ? (
 												<span className="text-red-400 text-left">
