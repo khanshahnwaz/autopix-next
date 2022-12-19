@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 // import Auth from "../layouts/Auth.js";
 import { useFormik, Formik, Field, Form } from "formik";
 import Link from 'next/link';
-import {eyeOff} from 'react-icons-kit/feather/eyeOff'
 
 export default function Register() {
 	
@@ -15,6 +14,7 @@ export default function Register() {
 			jobName: "",
 			deliveryTime: "",
 			message: "",
+			instruction:""
 		},
 		validate: (values) => {
 			const errors = {};
@@ -73,7 +73,9 @@ let i;
             let img = document.createElement("img");
             img.setAttribute("src",reader.result);
             // img.classList.add('w-[200px]')
-            img.style.width='200px'
+            img.style.width='150px';
+			img.style.border='1px dashed black';
+			img.style.margin='0 5px';
             figure.insertBefore(img,figCap);
         }
         imageContainer.appendChild(figure);
@@ -178,7 +180,7 @@ let i;
 												onChange={form1.handleChange}
 												value={form1.values.instruction}
 												className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-												placeholder="TEST JOB"
+												placeholder="Wan to add new instruction?"
 											/>
 											{form1.errors.instruction && form1.touched.instruction ? (
 												<span className="text-red-400 text-left">
@@ -199,14 +201,14 @@ let i;
 								) : (
 									<div className="container bg-white w-[60%] min-w-[45px] relative my-12 mx-auto py-12 px-5 rounded-md shadow-md text-center">
         <input className="hidden" type="file" id="file-input" accept="image/png, image/jpeg" onChange={preview} multiple/>
-        <label htmlFor="file-input" className="bg-red-600 px-4 py-2 rounded-md cursor-pointer hover:opacity-50 text-2xl ">
+        <label htmlFor="file-input" className="bg-red-600 px-4 py-2 rounded-lg cursor-pointer hover:opacity-50 text-2xl ">
             + Upload image
         </label>
         <p id="num-of-files" className="text-center mt-5 mx-0 mb-8">{num} Files Chosen</p>
         <div id="images" className="flex flex-wrap"></div>
         <button className="bg-red-400 rounded-md text-base px-2 py-1 " onClick={()=>{
             console.log("Added images ",fileInput.files)
-        }}>Save</button>
+        }}><Link href='/admin/tables'>Save</Link></button>
     </div>
 								)}
 							</div>

@@ -14,13 +14,15 @@ export default function Admin({ children }) {
 			<div className="relative md:ml-64 bg-blueGray-100">
 				<AdminNavbar />
 				{/* Header */}
-				<div className="relative bg-white md:pt-32 pb-32 pt-12 mx-auto text-center -top-10">
+				<div className="bg-white md:pt-32 pb-32 pt-12 mx-auto text-center">
 					{/* <HeaderStats /> */}
 					{/* CREATE NEW ORDERS */}
-					<label className="relative text-2xl text-center text-black font-extrabold">ORDERS</label><br />
-					<p className="text-gray-600">On this page, you can order new jobs, check current jobs and comment or simply approve and download</p>
 					
-						<button className=" w-96 rounded-lg px-3 py-2 text-center text-black bg-red-600 hover:opacity-30 hover:cursor-pointer border-2" ><Link href='/AddOrder'>CREATE NEW ORDER</Link></button>
+					<label className=" text-2xl text-center text-black font-bold">ORDERS</label><br />
+					<p className="text-gray-700 mb-2">On this page, you can order new jobs, check current jobs and comment or simply approve and download</p>
+					
+						<button className=" w-96 rounded-lg px-3 py-2 text-center text-black bg-red-500 hover:opacity-50 hover:cursor-pointer border-2 font-bold" ><Link href='/AddOrder'>+ CREATE NEW ORDER</Link></button>
+
 					
 				</div>
 				<div className="px-4 md:px-10 mx-auto w-full -m-24">
