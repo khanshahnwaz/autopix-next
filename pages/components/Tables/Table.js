@@ -152,7 +152,8 @@ const Table = ({ columns, data, color }) => {
 		useSortBy,
 		usePagination
 	);
-
+	
+	console.log(Table)
 	return (
 		<div
 			className={
@@ -212,7 +213,6 @@ const Table = ({ columns, data, color }) => {
 					</div>
 				</div>
 			</div>
-
 			{/* table */}
 			<div className="block w-full overflow-x-auto">
 				<table

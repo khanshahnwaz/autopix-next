@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Auth from "../layouts/Auth.js";
 import { useFormik, Formik, Field, Form } from "formik";
-import Link from 'next/link';
-import { Icon } from 'react-icons-kit'
-import {eye} from 'react-icons-kit/feather/eye'
-import {eyeOff} from 'react-icons-kit/feather/eyeOff'
+import Link from "next/link";
+import { Icon } from "react-icons-kit";
+import { eye } from "react-icons-kit/feather/eye";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
 
 export default function Register() {
-	const[cnfType,setCnfType]=useState('password')
-	const[type,setType]=useState('password')
-	const[cnfIcon,setCnfIcon]=useState(eyeOff)
-	const[Vicon,setVIcon]=useState(eyeOff)
+	const [cnfType, setCnfType] = useState("password");
+	const [type, setType] = useState("password");
+	const [cnfIcon, setCnfIcon] = useState(eyeOff);
+	const [Vicon, setVIcon] = useState(eyeOff);
 	const [level, setLevel] = useState(0);
 	const [data, setData] = useState({});
 
 	// set visibility of password section
-	const handlePass=()=>{
-		type=='password'?(setType('text'),setVIcon(eye)):(setType('password'),setVIcon(eyeOff))
-	}
-	const handleCnfPass=()=>{
-		cnfType=='password'?(setCnfType('text'),setCnfIcon(eye)):(setCnfType('password'),setCnfIcon(eyeOff))
-	}
+	const handlePass = () => {
+		type == "password"
+			? (setType("text"), setVIcon(eye))
+			: (setType("password"), setVIcon(eyeOff));
+	};
+	const handleCnfPass = () => {
+		cnfType == "password"
+			? (setCnfType("text"), setCnfIcon(eye))
+			: (setCnfType("password"), setCnfIcon(eyeOff));
+	};
 	const form1 = useFormik({
 		initialValues: {
 			email: "",
@@ -77,7 +81,7 @@ export default function Register() {
 			// await new Promise((r) => setTimeout(r, 1000));
 			// var obj = Object.assign({}, data, values);
 			// console.log(values);
-			setData(val=>[...val,values]);
+			setData((val) => [...val, values]);
 			// useEffect(() => {
 			alert(JSON.stringify(data));
 			// }, [data]);
@@ -96,12 +100,18 @@ export default function Register() {
 									<h6 className="text-blueGray-500 text-xl font-bold">
 										CREATE ACCOUNT
 									</h6>
-									<small>Already have one? <Link href='/auth/login'><span className="text-blue-700 hover:cursor-pointer">SignIn</span></Link></small>
+									<small>
+										Already have one?{" "}
+										<Link href="/auth/login">
+											<span className="text-blue-700 hover:cursor-pointer">
+												SignIn
+											</span>
+										</Link>
+									</small>
 								</div>
 								<hr className="mt-6 border-b-1 border-blueGray-300" />
 							</div>
 							<div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-
 								{level === 0 ? (
 									<form onSubmit={form1.handleSubmit}>
 										<div className="relative w-full mb-3">
@@ -134,17 +144,26 @@ export default function Register() {
 											>
 												Password
 											</label>
-											<div className="flex bg-white border-1 rounded">
-											<input
-												type={type}
-												className=" px-3 py-3 placeholder-blueGray-300 text-blueGray-600  border-0 text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 inline"
-												placeholder="Password"
-												name="password"
-												onBlur={form1.handleBlur}
-												onChange={form1.handleChange}
-												value={form1.values.password}
-											/>
-											<span className="bg-white pt-1 cursor-pointer" onClick={handlePass}><Icon className="hover:cursor-pointer hover:opacity-50" icon={Vicon}/></span></div>
+											<div className="flex bg-white border-1 rounded relative">
+												<input
+													type={type}
+													className=" px-3 py-3 placeholder-blueGray-300 text-blueGray-600  border-0 text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 inline rounded"
+													placeholder="Password"
+													name="password"
+													onBlur={form1.handleBlur}
+													onChange={form1.handleChange}
+													value={form1.values.password}
+												/>
+												<div
+													className="bg-white pt-1 cursor-pointer absolute right-0 mr-2 top-0 bottom-0 flex"
+													onClick={handlePass}
+												>
+													<Icon
+														className="hover:cursor-pointer hover:opacity-50"
+														icon={Vicon}
+													/>
+												</div>
+											</div>
 
 											{form1.errors.password && form1.touched.password ? (
 												<span className="text-red-400 text-left">
@@ -160,17 +179,22 @@ export default function Register() {
 											>
 												Confirm Password
 											</label>
-											<div className="flex bg-white">
-											<input
-												type={cnfType}
-												className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-												placeholder="Confirm Password"
-												name="confirmPassword"
-												onBlur={form1.handleBlur}
-												onChange={form1.handleChange}
-												value={form1.values.confirmPassword}
-											/>
-											<span className="bg-white pt-1 cursor-pointer hover:opacity-50" onClick={handleCnfPass}><Icon className="" icon={cnfIcon}/></span>
+											<div className="flex bg-white rounded">
+												<input
+													type={cnfType}
+													className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 relative"
+													placeholder="Confirm Password"
+													name="confirmPassword"
+													onBlur={form1.handleBlur}
+													onChange={form1.handleChange}
+													value={form1.values.confirmPassword}
+												/>
+												{/* <div
+													className="bg-white pt-1 cursor-pointer hover:opacity-50 absolute right-0 mr-2"
+													onClick={handleCnfPass}
+												>
+													<Icon className="" icon={cnfIcon} />
+												</div> */}
 											</div>
 											{form1.errors.confirmPassword &&
 											form1.touched.confirmPassword ? (
