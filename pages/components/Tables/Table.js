@@ -142,18 +142,20 @@ const Table = ({ columns, data, color }) => {
 		state,
 		preGlobalFilteredRows,
 		setGlobalFilter,
+		state: { pageIndex, pageSize },
 	} = useTable(
 		{
 			columns,
 			data,
+			initialState: { pageIndex: 0, pageSize: 5 },
 		},
 		useFilters,
 		useGlobalFilter,
 		useSortBy,
 		usePagination
 	);
-	
-	console.log(Table)
+
+	console.log(Table);
 	return (
 		<div
 			className={
@@ -217,8 +219,10 @@ const Table = ({ columns, data, color }) => {
 			<div className="block w-full overflow-x-auto">
 				<table
 					{...getTableProps()}
+					pageSize={5}
 					className="items-center w-full bg-transparent border-collapse"
 				>
+					{/* {setPageSize(5)} */}
 					<thead className="bg-gray-50">
 						{headerGroups.map((headerGroup) => (
 							<tr {...headerGroup.getHeaderGroupProps()}>
