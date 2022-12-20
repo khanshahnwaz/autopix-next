@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import Link from "next/dist/client/link.js";
 
 // components
 import CardTable from "../components/Cards/CardTable.js";
@@ -27,6 +28,7 @@ export default function Tables() {
 		{
 			Header: "Status",
 			accessor: "status",
+			// statusbar: StatusPill
 		},
 		{
 			Header: "Delivery Date",
@@ -40,7 +42,6 @@ export default function Tables() {
 			Filter: SelectColumnFilter, // new
 			filter: "includes",
 		},
-
 	];
 	const columns = useMemo(() => column, []);
 
@@ -49,10 +50,11 @@ export default function Tables() {
 	return (
 		<>
 			<div className="flex flex-wrap mt-4">
-				<div className="w-full mb-12 px-4">
+				<div className="w-full mb-12 -mt-10 px-12 md:px-12">
 					{/* <CardTable /> */}
 					<Table columns={columns} data={data} />
 				</div>
+
 				{/* <div className="w-full mb-12 px-4">
 					<CardTable color="dark" />
 				</div> */}

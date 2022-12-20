@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 // import Auth from "../layouts/Auth.js";
 import { useFormik, Formik, Field, Form } from "formik";
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Register() {
-	
 	const [level, setLevel] = useState(0);
 	const [data, setData] = useState({});
 
-	
 	const form1 = useFormik({
 		initialValues: {
 			jobName: "",
 			deliveryTime: "",
 			message: "",
-			instruction:""
+			instruction: "",
 		},
 		validate: (values) => {
 			const errors = {};
@@ -22,15 +20,15 @@ export default function Register() {
 			if (!values.jobName) {
 				errors.jobName = "*Required";
 			}
-             
+
 			if (!values.deliveryTime) {
 				errors.deliveryTime = "*Required";
 			}
-             
+
 			if (!values.message) {
 				errors.message = "*Required";
 			}
-            
+
 			return errors;
 		},
 		onSubmit: async (values) => {
@@ -41,47 +39,45 @@ export default function Register() {
 		},
 	});
 
-	
-
-    // upload images with preview
-const[fileInput,setFileInput]=useState(null) ;
-const[imageContainer,setImageContainer]=useState(null)
-const[numOfFiles,setNumOfFiles]=useState(null)
-const[num,setNum]=useState(0);
-useEffect(()=>{
-    console.log("hii")
- setFileInput (document.getElementById("file-input"));
- setImageContainer(document.getElementById("images"));
- console.log(imageContainer)
- setNumOfFiles(document.getElementById("num-of-files"));
-},[level])
-function preview(){
-    // imageContainer.innerHTML = "";
-    let number=`${fileInput.files.length}`
-    // numOfFiles.textContent += `${fileInput.files.length} Files Selected`;
-    setNum(parseInt(num)+parseInt(number));
-let i;
-    for( i of fileInput.files){
-        let reader = new FileReader();
-        let figure = document.createElement("figure");
-        figure.classList.add('w-[45%]')
-        let figCap = document.createElement("figcaption");
-        figCap.classList.add('text-center','text-2xl','mt-2')
-        figCap.innerText = i.name;
-        figure.appendChild(figCap);
-        reader.onload=()=>{
-            let img = document.createElement("img");
-            img.setAttribute("src",reader.result);
-            // img.classList.add('w-[200px]')
-            img.style.width='150px';
-			img.style.border='1px dashed black';
-			img.style.margin='0 5px';
-            figure.insertBefore(img,figCap);
-        }
-        imageContainer.appendChild(figure);
-        reader.readAsDataURL(i);
-    }
-}
+	// upload images with preview
+	const [fileInput, setFileInput] = useState(null);
+	const [imageContainer, setImageContainer] = useState(null);
+	const [numOfFiles, setNumOfFiles] = useState(null);
+	const [num, setNum] = useState(0);
+	useEffect(() => {
+		console.log("hii");
+		setFileInput(document.getElementById("file-input"));
+		setImageContainer(document.getElementById("images"));
+		console.log(imageContainer);
+		setNumOfFiles(document.getElementById("num-of-files"));
+	}, [level]);
+	function preview() {
+		// imageContainer.innerHTML = "";
+		let number = `${fileInput.files.length}`;
+		// numOfFiles.textContent += `${fileInput.files.length} Files Selected`;
+		setNum(parseInt(num) + parseInt(number));
+		let i;
+		for (i of fileInput.files) {
+			let reader = new FileReader();
+			let figure = document.createElement("figure");
+			figure.classList.add("w-[45%]");
+			let figCap = document.createElement("figcaption");
+			figCap.classList.add("text-center", "text-2xl", "mt-2");
+			figCap.innerText = i.name;
+			figure.appendChild(figCap);
+			reader.onload = () => {
+				let img = document.createElement("img");
+				img.setAttribute("src", reader.result);
+				// img.classList.add('w-[200px]')
+				img.style.width = "150px";
+				img.style.border = "1px dashed black";
+				img.style.margin = "0 5px";
+				figure.insertBefore(img, figCap);
+			};
+			imageContainer.appendChild(figure);
+			reader.readAsDataURL(i);
+		}
+	}
 
 	return (
 		<>
@@ -98,7 +94,6 @@ let i;
 								<hr className="mt-6 border-b-1 border-blueGray-300" />
 							</div>
 							<div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-
 								{level === 0 ? (
 									<form onSubmit={form1.handleSubmit}>
 										<div className="relative w-full mb-3">
@@ -129,7 +124,8 @@ let i;
 												className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
 												htmlFor="grid-password"
 											>
-												DELIVERY TIME											</label>
+												DELIVERY TIME{" "}
+											</label>
 											<input
 												type="date"
 												name="deliveryTime"
@@ -139,19 +135,21 @@ let i;
 												className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 												placeholder="DeliveryTime"
 											/>
-											{form1.errors.deliveryTime && form1.touched.deliveryTime ? (
+											{form1.errors.deliveryTime &&
+											form1.touched.deliveryTime ? (
 												<span className="text-red-400 text-left">
 													{form1.errors.deliveryTime}
 												</span>
 											) : null}
 										</div>
-										
-                                        <div className="relative w-full mb-3">
+
+										<div className="relative w-full mb-3">
 											<label
 												className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
 												htmlFor="grid-password"
 											>
-												MESSAGE											</label>
+												MESSAGE{" "}
+											</label>
 											<textarea
 												name="message"
 												onBlur={form1.handleBlur}
@@ -166,13 +164,14 @@ let i;
 												</span>
 											) : null}
 										</div>
-										
+
 										<div className="relative w-full mb-3">
 											<label
 												className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
 												htmlFor="grid-password"
 											>
-												INSTRUCTION											</label>
+												INSTRUCTION{" "}
+											</label>
 											<input
 												type="text"
 												name="instruction"
@@ -200,16 +199,33 @@ let i;
 									</form>
 								) : (
 									<div className="container bg-white w-[60%] min-w-[45px] relative my-12 mx-auto py-12 px-5 rounded-md shadow-md text-center">
-        <input className="hidden" type="file" id="file-input" accept="image/png, image/jpeg" onChange={preview} multiple/>
-        <label htmlFor="file-input" className="bg-red-600 px-4 py-2 rounded-lg cursor-pointer hover:opacity-50 text-2xl ">
-            + Upload image
-        </label>
-        <p id="num-of-files" className="text-center mt-5 mx-0 mb-8">{num} Files Chosen</p>
-        <div id="images" className="flex flex-wrap"></div>
-        <button className="bg-red-400 rounded-md text-base px-2 py-1 " onClick={()=>{
-            console.log("Added images ",fileInput.files)
-        }}><Link href='/admin/tables'>Save</Link></button>
-    </div>
+										<input
+											className="hidden"
+											type="file"
+											id="file-input"
+											accept="image/png, image/jpeg"
+											onChange={preview}
+											multiple
+										/>
+										<label
+											htmlFor="file-input"
+											className="bg-red-600 px-4 py-2 rounded-lg cursor-pointer hover:opacity-50 text-2xl "
+										>
+											+ Upload image
+										</label>
+										<p id="num-of-files" className="text-center mt-5 mx-0 mb-8">
+											{num} Files Chosen
+										</p>
+										<div id="images" className="flex flex-wrap"></div>
+										<button
+											className="bg-red-400 rounded-md text-base px-2 py-1 "
+											onClick={() => {
+												console.log("Added images ", fileInput.files);
+											}}
+										>
+											<Link href="/admin/tables">Save</Link>
+										</button>
+									</div>
 								)}
 							</div>
 						</div>
