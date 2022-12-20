@@ -48,6 +48,8 @@ const[fileInput,setFileInput]=useState(null) ;
 const[imageContainer,setImageContainer]=useState(null)
 const[numOfFiles,setNumOfFiles]=useState(null)
 const[num,setNum]=useState(0);
+// array state to manage the names of the uploaded image
+const[image,setImage]=useState([]);
 useEffect(()=>{
     console.log("hii")
  setFileInput (document.getElementById("file-input"));
@@ -55,9 +57,15 @@ useEffect(()=>{
  console.log(imageContainer)
  setNumOfFiles(document.getElementById("num-of-files"));
 },[level])
+useEffect(()=>{
+	// console.log("Uploaded data is ",data)
+	setData({...data,images:image})
+},[image])
 function preview(){
     // imageContainer.innerHTML = "";
     let number=`${fileInput.files.length}`
+	setImage([...image,fileInput.files[0].name])
+	// console.log(fileInput.files[0].name)
     // numOfFiles.textContent += `${fileInput.files.length} Files Selected`;
     setNum(parseInt(num)+parseInt(number));
 let i;
@@ -131,7 +139,7 @@ let i;
 											>
 												DELIVERY TIME											</label>
 											<input
-												type="date"
+												type="datetime-local"
 												name="deliveryTime"
 												onBlur={form1.handleBlur}
 												onChange={form1.handleChange}
@@ -207,7 +215,9 @@ let i;
         <p id="num-of-files" className="text-center mt-5 mx-0 mb-8">{num} Files Chosen</p>
         <div id="images" className="flex flex-wrap"></div>
         <button className="bg-red-400 rounded-md text-base px-2 py-1 " onClick={()=>{
-            console.log("Added images ",fileInput.files)
+            console.log("Added data  ",data)
+			alert(JSON.stringify(data))
+			// setData({...data,images:image})
         }}><Link href='/admin/tables'>Save</Link></button>
     </div>
 								)}
