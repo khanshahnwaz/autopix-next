@@ -44,6 +44,8 @@ export default function Register() {
 	const [imageContainer, setImageContainer] = useState(null);
 	const [numOfFiles, setNumOfFiles] = useState(null);
 	const [num, setNum] = useState(0);
+	// array state to manage the names of the uploaded image
+	const [image, setImage] = useState([]);
 	useEffect(() => {
 		console.log("hii");
 		setFileInput(document.getElementById("file-input"));
@@ -51,9 +53,15 @@ export default function Register() {
 		console.log(imageContainer);
 		setNumOfFiles(document.getElementById("num-of-files"));
 	}, [level]);
+	useEffect(() => {
+		// console.log("Uploaded data is ",data)
+		setData({ ...data, images: image });
+	}, [image]);
 	function preview() {
 		// imageContainer.innerHTML = "";
 		let number = `${fileInput.files.length}`;
+		setImage([...image, fileInput.files[0].name]);
+		// console.log(fileInput.files[0].name)
 		// numOfFiles.textContent += `${fileInput.files.length} Files Selected`;
 		setNum(parseInt(num) + parseInt(number));
 		let i;
@@ -127,7 +135,7 @@ export default function Register() {
 												DELIVERY TIME{" "}
 											</label>
 											<input
-												type="date"
+												type="datetime-local"
 												name="deliveryTime"
 												onBlur={form1.handleBlur}
 												onChange={form1.handleChange}
@@ -220,7 +228,9 @@ export default function Register() {
 										<button
 											className="bg-red-400 rounded-md text-base px-2 py-1 "
 											onClick={() => {
-												console.log("Added images ", fileInput.files);
+												console.log("Added data  ", data);
+												alert(JSON.stringify(data));
+												// setData({...data,images:image})
 											}}
 										>
 											<Link href="/admin/tables">Save</Link>
@@ -231,6 +241,7 @@ export default function Register() {
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</>
 	);
